@@ -22,8 +22,9 @@ class _MyAppState extends State<MyApp> {
 
   void convertTemperature() {
     setState(() {
-      _kelvin = double.parse(inputController.text) + 273;
-      _reamur = 4 / 5 * double.parse(inputController.text);
+      _inputUser = double.parse(inputController.text);
+      _kelvin = _inputUser + 273;
+      _reamur = 4 / 5 * _inputUser;
     });
     print('Done');
   }
@@ -47,9 +48,9 @@ class _MyAppState extends State<MyApp> {
               Input(inputController),
               Row(
                 children: [
-                  Column(                    
-                    children: [                                            
-                      Text(                        
+                  Column(
+                    children: [                      
+                      Text(
                         'Suhu dalam Kelvin',
                         style: TextStyle(fontSize: 20),
                       ),
@@ -81,4 +82,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
