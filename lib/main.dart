@@ -14,17 +14,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  TextEditingController inputController = new TextEditingController();
-
   double _inputUser = 0;
-  String _newValue = "Kelvin";
+  String? _newValue = "Kelvin";
   double _result = 0;
+
+  TextEditingController _inputController = new TextEditingController();
 
   var listItem = ["Kelvin", "Reamur", "Fahrenheit"];
 
   void convertTemperature() {
     setState(() {
-      _inputUser = double.parse(inputController.text);
+      _inputUser = double.parse(_inputController.text);
 
       if (_newValue == 'Kelvin') {
         _result = _inputUser + 273;
@@ -33,7 +33,14 @@ class _MyAppState extends State<MyApp> {
       } else if (_newValue == 'Fahrenheit') {
         _result = 9 / 5 * _inputUser + 32;
       }
-    });    
+    });
+  }
+
+  void changeDropdownValue(changeValue) {
+    convertTemperature();
+    setState(() {
+      _newValue = changeValue;
+    });
   }
 
   @override
@@ -53,7 +60,7 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Input(inputController),
+              Input(_inputController),
               DropdownButton<String>(
                 items: listItem.map((String value) {
                   return DropdownMenuItem<String>(
@@ -63,16 +70,13 @@ class _MyAppState extends State<MyApp> {
                 }).toList(),
                 value: _newValue,
                 onChanged: (changeValue) {
-                  setState(() {
-                    _newValue = changeValue.toString();
-                    _inputUser = double.parse(inputController.text);
-                  });
+                  changeDropdownValue(changeValue);
                 },
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Result(_result),                  
+                  Result(_result),
                 ],
               ),
               Container(child: Convert(convertTemperature)),
