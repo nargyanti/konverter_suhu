@@ -19,12 +19,14 @@ class _MyAppState extends State<MyApp> {
   double _inputUser = 0;
   double _kelvin = 0;
   double _reamur = 0;
+  double _fahrenheit = 0;
 
   void convertTemperature() {
     setState(() {
       _inputUser = double.parse(inputController.text);
       _kelvin = _inputUser + 273;
       _reamur = 4 / 5 * _inputUser;
+      _fahrenheit = 9 / 5 * _inputUser + 32;
     });
     print('Done');
   }
@@ -44,37 +46,18 @@ class _MyAppState extends State<MyApp> {
         body: Container(
           margin: EdgeInsets.all(8),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Input(inputController),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    children: [                      
-                      Text(
-                        'Suhu dalam Kelvin',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Text(
-                        _kelvin.toStringAsFixed(2),
-                        style: TextStyle(fontSize: 30),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'Suhu dalam Reamur',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Text(
-                        _reamur.toStringAsFixed(2),
-                        style: TextStyle(fontSize: 30),
-                      )
-                    ],
-                  ),
+                  Result("Kelvin", _kelvin),
+                  Result("Reamur", _reamur),
+                  Result("Fahrenheit", _fahrenheit),
                 ],
               ),
-              Convert(convertTemperature),
+              Container(child: Convert(convertTemperature)),
             ],
           ),
         ),
