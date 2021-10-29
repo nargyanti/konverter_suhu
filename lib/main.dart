@@ -29,19 +29,22 @@ class _MyAppState extends State<MyApp> {
 
       if (_newValue == 'Kelvin') {
         _result = _inputUser + 273;
+        listViewItem.add("Kelvin: " + _result.toStringAsFixed(2));
       } else if (_newValue == 'Reamur') {
         _result = 4 / 5 * _inputUser;
+        listViewItem.add("Reamur: " + _result.toStringAsFixed(2));
       } else if (_newValue == 'Fahrenheit') {
         _result = 9 / 5 * _inputUser + 32;
+        listViewItem.add("Fahrenheit: " + _result.toStringAsFixed(2));
       }
     });
   }
 
   void changeDropdownValue(changeValue) {
-    convertTemperature();
     setState(() {
       _newValue = changeValue;
     });
+    convertTemperature();
   }
 
   @override
@@ -81,7 +84,25 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
               Convert(convertTemperature),
-              
+              Container(
+                margin: EdgeInsets.only(top: 30, bottom: 10),
+                child: Text(
+                  "Riwayat Konversi",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Expanded(
+                  child: ListView(
+                children: listViewItem.map((String value) {
+                  return Container(
+                    margin: EdgeInsets.all(10),
+                    child: Text(
+                      value,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  );
+                }).toList(),
+              ))
             ],
           ),
         ),
