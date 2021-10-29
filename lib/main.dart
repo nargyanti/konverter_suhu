@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:konverter_suhu/history.dart';
 
 import './input.dart';
 import './convert.dart';
 import './result.dart';
+import './history.dart';
 
 void main() {
   runApp(MyApp());
@@ -92,21 +94,11 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Expanded(
-                  child: ListView(
-                children: listViewItem.map((String value) {
-                  return Container(
-                    margin: EdgeInsets.all(10),
-                    child: Text(
-                      value,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  );
-                }).toList(),
-              ))
-            ],
-          ),
+                  child: History(listViewItem),
+              ),
+            ]
         ),
       ),
-    );
+    ));
   }
 }
