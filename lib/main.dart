@@ -19,6 +19,7 @@ class _MyAppState extends State<MyApp> {
   double _result = 0;
 
   TextEditingController _inputController = new TextEditingController();
+  List<String> listViewItem = [];
 
   var listItem = ["Kelvin", "Reamur", "Fahrenheit"];
 
@@ -79,7 +80,8 @@ class _MyAppState extends State<MyApp> {
                   Result(_result),
                 ],
               ),
-              Container(child: Convert(convertTemperature)),
+              Convert(convertTemperature),
+              
             ],
           ),
         ),
